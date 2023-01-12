@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -10,6 +10,7 @@ import {
   Legend,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
+import instance from "../../lib/instance";
 
 ChartJS.register(
   CategoryScale,
@@ -18,7 +19,7 @@ ChartJS.register(
   LineElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
 );
 
 export const options = {
@@ -34,38 +35,27 @@ export const options = {
   },
 };
 
-const labels = ["January", "February", "March", "April", "May", "June", "July", "August"];
-
-function getRandomArbitrary(min, max) {
-  return Math.random() * (max - min) + min;
-}
-
-export const data = {
-  labels,
-  datasets: [
-    {
-      label: "Dataset 1",
-      data: labels.map(() =>
-        new Array(8)
-          .fill(getRandomArbitrary(1, 101))
-          .sort(() => Math.random() - 0.5)
-      ),
-      borderColor: "rgb(255, 99, 132)",
-      backgroundColor: "rgba(255, 99, 132, 0.5)",
-    },
-    {
-      label: "Dataset 2",
-      data: labels.map(() =>
-        new Array(7)
-          .fill(getRandomArbitrary(1, 100))
-          .sort(() => Math.random() - 0.5)
-      ),
-      borderColor: "rgb(53, 162, 235)",
-      backgroundColor: "rgba(53, 162, 235, 0.5)",
-    },
-  ],
-};
-
 export default function LineGraph() {
+  const [score, setScore] = useState([]);
+  const labels = new Array(20).fill(" ");
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: "내점수",
+        data: score,
+        bezierCurve: true,
+        fill: true,
+        borderColor: "rgb(255, 99, 132)",
+        backgroundColor: "rgba(255, 99, 132, 0.5)",
+      },
+    ],
+  };
+  useEffect(() => {
+    instance
+      .get("http://10.150.149.2:3000/api/score/all")
+      .then(({ data }) => setScore(data.slice(-20).map((data) => data.score)));
+  }, []);
+
   return <Line options={options} data={data} />;
 }

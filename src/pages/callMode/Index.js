@@ -6,6 +6,7 @@ import useDebounce from "../../hooks/useDebounce";
 import { useSpeechRecognition } from "react-speech-kit";
 import { v4 as uuidv4 } from "uuid";
 import { getTimeOnly } from "../../util/date";
+import instance from "../../lib/instance";
 
 const Index = () => {
   const [isCalling, setIsCalling] = useState(false);
@@ -24,8 +25,12 @@ const Index = () => {
   });
 
   useEffect(() => {
-    console.log(value);
+    instance.post("/dialog", {
+      hash: random,
+      content: value[value.length - 1],
+    });
   }, [value]);
+  
   return (
     <Frame rollback>
       <S.CallModeContainer>
@@ -55,6 +60,7 @@ const Index = () => {
                 setIsCalling(false);
                 stop();
                 console.log(value); // uuid, value 서버에 post
+
                 setValue([]);
               }}
               bgColor={"red"}
