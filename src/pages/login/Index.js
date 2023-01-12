@@ -52,7 +52,6 @@ const Index = () => {
             >
               회원가입
             </S.Link>
-            <S.Link>비밀번호 찾기</S.Link>
           </S.LinkTabs>
         </S.LoginForm>
         <S.BottomBox></S.BottomBox>

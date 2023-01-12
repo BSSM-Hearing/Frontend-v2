@@ -13,7 +13,7 @@ export default function Statistics({ count, percent, type = "점수" }) {
           처음 하셨네요! <br /> 앞으로 꾸준히 해봐요
         </h2>
       ) : (
-        <h2 className="text-[16px]">어제 대비 {percent}% 증가</h2>
+        <h2 className="text-[16px]">어제 대비 {percent} 증가</h2>
       )}
     </div>
   );

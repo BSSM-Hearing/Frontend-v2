@@ -16,11 +16,12 @@ export default function Real() {
         transports: ["websocket"],
       },
     );
-
-    socketIo.connect();
-    console.log(socketIo);
-
+    socketIo.connect(); // 연결
     setSocket(socketIo);
+    socketIo.on("alarm", (data) => {
+      // 소켓 구독
+      if (data === "on") setIsChecking(true);
+    });
   }, []);
 
   useEffect(() => {
@@ -36,15 +37,11 @@ export default function Real() {
       <div className="w-full h-full p-12 text-center">
         <div className="mt-[200px]">
           {!isChecking ? (
-            <>
-              <h1 className="text-[#1C69FF] text-6xl font-bold">
-                보호자가 확인하는 중..
-              </h1>
-            </>
+            <h1 className="text-[#1C69FF] text-6xl font-bold">
+              보호자가 확인하는 중..
+            </h1>
           ) : (
-            <>
-              <h1 className="text-red-500">보호자가 오는 중..</h1>
-            </>
+            <h1 className="text-red-500 text-6xl font-bold">보호자가 오는 중..</h1>
           )}
         </div>
         <button
