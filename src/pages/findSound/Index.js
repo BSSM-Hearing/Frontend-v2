@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import Frame from "../../components/common/frame/index";
 import * as S from "./Style";
 import { useNavigate } from "react-router";
 import { useSearchParams } from "react-router-dom";
 
 const Index = () => {
-  const [searchParams, setSearchPrams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const text = searchParams.get("text");
   const router = useNavigate();
   return (

@@ -12,6 +12,8 @@ export default function Main() {
   const [date, setDate] = useState("");
   const [score, setScore] = useState();
   const [user, setUser] = useState();
+  const [weather, setWeather] = useState();
+  const [dust, setDust] = useState();
   const [dialog, setDialog] = useState();
   const router = useNavigate();
 
@@ -26,6 +28,11 @@ export default function Main() {
 
     instance.get("/score/today").then(({ data }) => setScore(data));
     instance.get("/dialog/get/today").then(({ data }) => setDialog(data));
+    instance.get("http://10.150.149.2:8080").then(({ data }) => setDust(data));
+
+    instance
+      .get("http://localhost:3000/weather/data.json")
+      .then(({ data }) => setWeather(data));
 
     setDate(getKoreanDate(new Date()));
     setInterval(() => {
@@ -38,7 +45,7 @@ export default function Main() {
   return (
     <Frame notice>
       <div className="p-8 w-full h-auto">
-        <DashBoard slot={getSlot(new Date())} />
+        <DashBoard slot={getSlot(new Date())} weather={weather} dust={dust} />
 
         <div
           className="flex justify-around mt-24 mb-[80px]"

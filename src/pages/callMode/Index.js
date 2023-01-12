@@ -15,7 +15,7 @@ const Index = () => {
 
   const { debounce } = useDebounce();
 
-  const { listen, listening, stop } = useSpeechRecognition({
+  const { listen, stop } = useSpeechRecognition({
     onResult: (result) => {
       debounce(
         () => setValue((prev) => [...prev, result + " " + getTimeOnly()]),
@@ -29,6 +29,7 @@ const Index = () => {
       hash: random,
       content: value[value.length - 1],
     });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
   
   return (
