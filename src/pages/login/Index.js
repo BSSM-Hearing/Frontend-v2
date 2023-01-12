@@ -46,8 +46,12 @@ const Index = () => {
           />
           <S.SubmitBtn type="submit">로그인</S.SubmitBtn>
           <S.LinkTabs>
-            <S.Link>회원가입</S.Link>
-            <S.Link>비밀번호 찾기</S.Link>
+            <S.Link
+              className="hover:decoration-solid"
+              onClick={() => router("/register")}
+            >
+              회원가입
+            </S.Link>
           </S.LinkTabs>
         </S.LoginForm>
         <S.BottomBox></S.BottomBox>

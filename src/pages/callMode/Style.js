@@ -9,7 +9,7 @@ export const CallModeContainer = styled.div`
 `;
 export const Title = styled.p`
   position: absolute;
-  top: 1%;
+  top: 7%;
   text-align: center;
   font-size: 3.5rem;
   font-weight: 700;

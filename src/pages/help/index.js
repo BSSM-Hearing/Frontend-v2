@@ -1,13 +1,14 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import Frame from "../../components/common/frame";
+import instance from "../../lib/instance";
 
 export default function Help() {
   const navigate = useNavigate();
 
   const isEmergency = () => {
     if (window.confirm("긴급 상황인가요?")) {
-      navigate(`/help/real`);
+      instance.post("/alarm").then((r) => navigate('/help/real'));
     }
   };
 
