@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import Frame from "../../components/common/frame";
 import { getKoreanDate, getSlot } from "../../util/date";
 import QuickMenu from "../../components/main/quickMenu";
@@ -10,9 +10,21 @@ import instance from "../../lib/instance";
 
 export default function Main() {
   const [date, setDate] = useState("");
+  const [score, setScore] = useState();
   const [user, setUser] = useState();
-  useEffect(() => {
-    instance.get("/user").then(({ data }) => setUser(data));
+  const router = useNavigate();
+
+  useLayoutEffect(() => {
+    instance.get("/user").then(({ data }) => {
+      if (data) {
+        setUser(data);
+      } else {
+        router("/login");
+      }
+    });
+
+    instance.get("/score/today").then(({ data }) => setScore(data));
+    instance.get("/score/all").then(({ data }) => console.log(data));
 
     setDate(getKoreanDate(new Date()));
     setInterval(() => {
@@ -21,8 +33,7 @@ export default function Main() {
     return () => {
       clearInterval();
     };
-  }, []);
-  const router = useNavigate();
+  }, [router]);
   return (
     <Frame notice>
       <div className="p-8 w-full h-auto">
@@ -32,8 +43,8 @@ export default function Main() {
           className="flex justify-around mt-24 mb-[80px]"
           onClick={() => router("/analytic")}
         >
-          <Statistics count="10" type="대화" percent="10" />
-          <Statistics count="100" percent="10" />
+          <Statistics count={score?.todayScore} percent={score?.dialogPercent} />
+          <Statistics count="100" type="대화" percent="10" />
         </div>
 
         <button

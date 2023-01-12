@@ -9,7 +9,7 @@ export const Frame = styled.div`
   min-height: calc(90vh - 40px);
   border-radius: 40px;
   box-sizing: border-box;
-  margin: 0 auto;
+  margin: 40px auto;
   box-shadow: 0px 10px 20px 10px rgba(0, 0, 0, 0.25);
   & > div {
     position: absolute;

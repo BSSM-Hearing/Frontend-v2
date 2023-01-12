@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Frame from "../../../components/common/frame";
 import { io } from "socket.io-client";
-import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Real() {
   const [socket, setSocket] = useState();
   const [isChecking, setIsChecking] = useState(false);
-  const { id } = useParams();
-  const cancel = () => console.log("추ㅣ소용");
+  const router = useNavigate();
+  const cancel = () => router("/");
 
   useEffect(() => {
     const socketIo = io(
@@ -21,7 +21,7 @@ export default function Real() {
     console.log(socketIo);
 
     setSocket(socketIo);
-  }, [id]);
+  }, []);
 
   useEffect(() => {
     return () => {
@@ -50,7 +50,7 @@ export default function Real() {
         <button
           type="button"
           className="rounded-full bg-[#1C69FF] text-white p-10 w-[150px] h-[150px] mt-[100px]"
-          onClick={() => cancel(id)}
+          onClick={() => cancel()}
         >
           <h1 className="text-[40px] font-bold m-0">취소</h1>
         </button>

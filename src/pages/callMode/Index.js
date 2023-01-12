@@ -10,6 +10,8 @@ import { getTimeOnly } from "../../util/date";
 const Index = () => {
   const [isCalling, setIsCalling] = useState(false);
   const [value, setValue] = useState([]);
+  const [random] = useState(uuidv4());
+
   const { debounce } = useDebounce();
 
   const { listen, listening, stop } = useSpeechRecognition({
@@ -27,7 +29,7 @@ const Index = () => {
   return (
     <Frame rollback>
       <S.CallModeContainer>
-        <S.Title>전화 모드</S.Title>
+        <S.Title>상시 녹음</S.Title>
         {!isCalling ? (
           <>
             <S.CallBtn
@@ -52,6 +54,7 @@ const Index = () => {
               onClick={() => {
                 setIsCalling(false);
                 stop();
+                console.log(value); // uuid, value 서버에 post
                 setValue([]);
               }}
               bgColor={"red"}
