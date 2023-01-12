@@ -12,6 +12,7 @@ export default function Main() {
   const [date, setDate] = useState("");
   const [score, setScore] = useState();
   const [user, setUser] = useState();
+  const [dialog, setDialog] = useState();
   const router = useNavigate();
 
   useLayoutEffect(() => {
@@ -24,7 +25,7 @@ export default function Main() {
     });
 
     instance.get("/score/today").then(({ data }) => setScore(data));
-    instance.get("/score/all").then(({ data }) => console.log(data));
+    instance.get("/dialog/get/today").then(({ data }) => setDialog(data));
 
     setDate(getKoreanDate(new Date()));
     setInterval(() => {
@@ -43,8 +44,15 @@ export default function Main() {
           className="flex justify-around mt-24 mb-[80px]"
           onClick={() => router("/analytic")}
         >
-          <Statistics count={score?.todayScore} percent={score?.dialogPercent} />
-          <Statistics count="100" type="대화" percent="10" />
+          <Statistics
+            count={score?.todayScore}
+            percent={score?.dialogPercent}
+          />
+          <Statistics
+            count={dialog?.todayCnt}
+            type="대화"
+            percent={dialog?.dialogPercent}
+          />
         </div>
 
         <button

@@ -44,10 +44,9 @@ export default function LineGraph() {
       {
         label: "내점수",
         data: score,
-        bezierCurve: true,
         fill: true,
-        borderColor: "rgb(255, 99, 132)",
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
+        borderColor: "#1c69ff",
+        backgroundColor: "#1c69ffa0",
       },
     ],
   };
