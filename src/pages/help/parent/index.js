@@ -46,7 +46,7 @@ export default function Parent() {
           .map((data, idx) => (
             <p
               key={idx}
-              className="text-[30px] bg-[#1C69ff] text-white font-bold p-12 m-12 fold-[900] rounded-xl duration-300 hover:text-black hover:bg-[#98E5FB]"
+              className={`cursor-pointer text-[30px] bg-[${idx === 0 ? "#1C69ff" : "transparent"}] color-black text-white font-bold p-12 m-12 fold-[900] rounded-xl duration-300 hover:text-black hover:bg-[#98E5FB]`}
               onClick={() => {
                 socket.emit("alarm", {
                   alarmId: data.alarmId,
